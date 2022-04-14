@@ -1,0 +1,16 @@
+.App {
+  background-color: #394049;
+  border-radius: 5px;
+  color: #ffffff;
+  width: 40%;
+  margin: 2rem auto;
+}
+
+.todo-header {
+  padding: .5rem;
+  border-bottom: 1px solid #2c3035;
+  text-align: center;
+}
+.todo-header h1 {
+  margin: 0;
+}
