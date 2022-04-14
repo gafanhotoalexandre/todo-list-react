@@ -10,7 +10,28 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = e => {
+  // get todos on page load
+  useEffect(() => {
+
+    const loadData = async () => {
+      setLoading(true)
+
+      try {
+        const res = await fetch(API + '/todos');
+        const data = await res.json();
+
+        setLoading(false);
+        setTodos(data);
+        } catch (error) {
+        console.log(error);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  // todo post
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const todo = {
@@ -20,12 +41,26 @@ function App() {
       done: false
     };
 
+    await fetch(API + '/todos', {
+      method: 'POST',
+      body: JSON.stringify(todo),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    setTodos((prevState) => [...prevState, todo]);
+
     // envio para API
     console.log(todo);
 
     setTitle('');
     setTime('');
   };
+
+  if (loading) {
+    return <p>Carregando...</p>
+  }
 
   return (
     <div className="App">
@@ -57,6 +92,18 @@ function App() {
       <section className="todo-list">
         <h2>Lista de Tarefas</h2>
         { todos.length === 0 && <p>Não há tarefas.</p> }
+
+        { todos.map((todo) => (
+          <div className="todo" key={todo.id}>
+            <h3 className={ todo.done ? 'todo-done' : '' }>{ todo.title }</h3>
+            <p>Duração: { todo.time }</p>
+
+            <div className="actions">
+              <span>{ !todo.done ? <BsBookmarkCheck /> : <BsBookmarkCheckFill /> }</span>
+              <BsTrash />
+            </div>
+          </div>
+        )) }
       </section>
     </div>
   )
