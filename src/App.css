@@ -72,3 +72,46 @@ button:focus,
 input[type="submit"]:focus {
   box-shadow: 0 0 2px 4px #2e2e2e;
 }
+
+/* ToDo actions */
+.todo-list {
+  padding: 0 1rem 2rem;
+  margin: 1rem 2rem;
+}
+
+.todo-list h2 {
+  margin-bottom: 0;
+}
+.todo-list p {
+  text-align: center;
+}
+
+.todo {
+  border-bottom: 1px solid #444;
+  padding: 1rem 0;
+}
+.todo h3 {
+  margin-bottom: .5rem;
+}
+
+.todo-done {
+  text-decoration: line-through;
+  color: rgb(240, 98, 146);
+}
+
+.todo p {
+  text-align: left;
+  font-style: italic;
+  font-size: .75rem;
+  margin-bottom: 1.5rem;
+}
+
+.todo svg {
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  transition: .2s;
+}
+.todo svg:hover {
+  color: rgb(240, 98, 146);
+}
