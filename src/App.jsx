@@ -12,8 +12,19 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    const todo = {
+      id: Math.random(),
+      title,
+      time,
+      done: false
+    };
+
+    // envio para API
+    console.log(todo);
+
     setTitle('');
-    console.log('Enviou!');
+    setTime('');
   };
 
   return (
@@ -32,7 +43,14 @@ function App() {
               value={title || ''} required/>
           </div>
 
-          <button type="submit">Enviar</button>
+          <div className="form-control">
+            <label htmlFor="time">Duração:</label>
+            <input type="text" name="time" placeholder="Título da Tarefa"
+              onChange={ e => setTime(e.target.value) }
+              value={time || ''} required/>
+          </div>
+
+          <button type="submit">Criar Tarefa</button>
         </form>
       </section>
 
