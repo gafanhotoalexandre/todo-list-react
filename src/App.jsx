@@ -49,14 +49,40 @@ function App() {
       },
     });
 
+    // renderizando a nova lista após uma inclusão
     setTodos((prevState) => [...prevState, todo]);
 
-    // envio para API
+    // envio para API (simulação)
     console.log(todo);
 
     setTitle('');
     setTime('');
   };
+
+  const handleDelete = async (id) => {
+    await fetch(API + '/todos/' + id, {
+      method: 'DELETE'
+    });
+
+    // renderizando a nova lista após uma exclusão
+    setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
+  }
+
+  const handleEdit = async (todo) => {
+
+    todo.done = !todo.done;
+
+    const data = await fetch(API + '/todos/' + todo.id, {
+      method: 'PUT',
+      body: JSON.stringify(todo),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    setTodos((prevState) =>
+      prevState.map((t) => t.id === data.id ? (t = data) : t ));
+  }
 
   if (loading) {
     return <p>Carregando...</p>
@@ -99,8 +125,10 @@ function App() {
             <p>Duração: { todo.time }</p>
 
             <div className="actions">
-              <span>{ !todo.done ? <BsBookmarkCheck /> : <BsBookmarkCheckFill /> }</span>
-              <BsTrash />
+              <span onClick={ () => handleEdit(todo) }>
+                { !todo.done ? <BsBookmarkCheck /> : <BsBookmarkCheckFill /> }
+              </span>
+              <BsTrash onClick={ () => handleDelete(todo.id) } />
             </div>
           </div>
         )) }
