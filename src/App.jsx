@@ -106,7 +106,7 @@ function App() {
 
           <div className="form-control">
             <label htmlFor="time">Duração:</label>
-            <input type="text" name="time" placeholder="Título da Tarefa"
+            <input type="text" name="time" placeholder="Duração da Tarefa"
               onChange={ e => setTime(e.target.value) }
               value={time || ''} required/>
           </div>
